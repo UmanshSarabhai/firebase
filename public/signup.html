@@ -1,0 +1,94 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Form</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-auth.js"></script>
+    <script src="app.js">
+    </script>
+    <style>
+        button:hover {
+            background-color: greenyellow;
+        }
+    </style>
+
+</head>
+
+<body style="   background-color: #50697a8c;">
+
+    <center>
+        <div id="formContainer " style="margin-top: 150px;">
+            <div class="container">
+                <h2>Register Now</h2>
+                <li style="list-style:none">
+                    <li style="list-style:none ;  margin-top: 20px;"> <input style="width: 300px; height: 50px;" type="text" placeholder="Enter your name" id="name"> </input>
+                    </li>
+                    <li style="list-style:none; margin-top: 20px;"><input style="width: 300px; height: 50px;" type="email" placeholder="Enter your email" id="email"></input>
+                    </li>
+                    <li style="list-style:none;margin-top: 20px;"><input style="width: 300px; height: 50px;" type="password" placeholder="Enter your password" id="password"> </input>
+                    </li>
+                </li>
+                <button style="margin-top: 30px; width: 300px;border-color: #24a0ed; border-radius: 15px; height: 50px;" onclick="signUp()"> Sign Up</button>
+
+
+            </div>
+
+        </div>
+    </center>
+    <script>
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCY4btmwPCE0evvj8f41Nzuk9NBwJoFmcs",
+            authDomain: "fireapp-01-7f5a1.firebaseapp.com",
+            databaseURL: "https://fireapp-01-7f5a1-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "fireapp-01-7f5a1",
+            storageBucket: "fireapp-01-7f5a1.appspot.com",
+            messagingSenderId: "151203507377",
+            appId: "1:151203507377:web:7009d76906423b63cc4690"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        function signUp() {
+
+            var name = document.getElementById("name");
+            var email = document.getElementById("email");
+            var password = document.getElementById("password");
+            console.log(name.value);
+            firebase
+                .auth()
+                .createUserWithEmailAndPassword(email.value, password.value)
+                .then((res) => {
+                    const user = firebase.auth().currentUser;
+
+
+                    if (user != null) {
+                        user.updateProfile({
+                            displayName: name.value
+                        }).then(() => {
+
+                            window.location = 'blogpage.html';
+                        }).catch((error) => {
+                            console.log(error);
+                        });
+                    } else {
+                        alert("Some error has been occured");
+                    }
+
+                }).catch(function(error) {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    alert(errorMessage);
+                    // ...
+                });
+
+        }
+    </script>
+</body>
+
+</html>

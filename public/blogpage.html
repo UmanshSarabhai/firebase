@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Blogs Page</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-analytics.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-firestore.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-auth.js"></script>
+
+    <style>
+        body {
+            background-color: #50697a8c;
+        }
+        
+        .card {
+            background-color: lightblue;
+            border: 3px solid black;
+        }
+        
+        #post {
+            margin: 3px;
+        }
+        
+        #image {
+            margin: 3px;
+        }
+        
+        #uploads {
+            background-color: #D5F5E3;
+            color: black;
+            font-weight: 2px;
+            border: 2px solid white;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+
+
+
+    <button type="button" class="btn btn-outline-primary" onclick="myData()" style="margin-top: 20px;">View my Blogs</button>
+    <button type="button" class="btn btn-outline-secondary" onclick="getData()" style="margin-left: 60px; margin-top: 20px;">View all Blogs</button>
+    <button type="button" class="btn btn-outline-success" onclick="logout()" style="margin-left: 60px;margin-top: 20px;">Logout</button>
+
+
+
+
+    <center>
+        <h3>Create Blogs</h3><br><br>
+
+
+        <textarea id="post" class="form-control" style="width: 1300px; height: 150px; " placeholder="Description....">  </textarea>
+        <input type="file" class="form-control" id="image" accept="images/*" style=" width: 250px;">
+        <div class="textarea">
+            <button type="button" id="uploads" class="btn btn-success" onclick="upload()" style=" border-radius: 15px; background-color: rgb(0, 255, 157); color: white; ">  Upload  </button>
+
+
+
+            <div class="row mt-4" id="posts">
+
+            </div>
+        </div>
+    </center>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.6.2/firebase.js"></script>
+
+
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCY4btmwPCE0evvj8f41Nzuk9NBwJoFmcs",
+            authDomain: "fireapp-01-7f5a1.firebaseapp.com",
+            databaseURL: "https://fireapp-01-7f5a1-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "fireapp-01-7f5a1",
+            storageBucket: "fireapp-01-7f5a1.appspot.com",
+            messagingSenderId: "151203507377",
+            appId: "1:151203507377:web:7009d76906423b63cc4690"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="blogs.js"></script>
+
+
+</body>
+
+</html>

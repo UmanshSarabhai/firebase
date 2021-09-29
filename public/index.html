@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./app.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Firebase Blog</title>
+    <style>
+        button:hover {
+            background-color: greenyellow;
+        }
+        
+        body {
+            background-color: #50697a8c;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <center>
+        <h2 style="margin-top: 50px;">Authentication</h2>
+
+        <main role="main">
+            <!-- JUMBOTRON -->
+
+
+            <div id="formContainer">
+                <div class="container">
+
+                    <li style="list-style:none; margin-top: 40px; ">
+                        <input type="email" class="form-control" placeholder="Enter your email" id="email" style="width: 300px; height: 50px;">
+
+                        <li style="list-style:none ; margin-top: 40px;"><input type="password" style="width: 300px; height: 50px;" class="form-control" placeholder="Enter your password" id="password"> </input>
+                        </li>
+
+                        <li style="list-style:none ; margin-top: 30px;"> <button style=" width: 120px;  border-radius: 15px;border-color:#4285F4;height: 50px;" onclick="signIn()"> Sign In</button>
+
+                            <button style=" width: 180px;border-color:#4285F4;  border-radius: 15px; height: 50px;" onclick="googleSignIn()"> Sign in with Google </button></li>
+
+                        <h3 style="margin-top: 40px;">Sign up </h3>
+
+                        <li style="list-style:none ;  margin-top: 15px;"> <button style="border-color:#4285F4;width: 300px; height: 50px; border-radius: 15px;" onclick="window.location.href='signup.html'">Sign Up</button></li>
+
+
+
+                </div>
+
+            </div>
+            </div>
+
+            <div class="container">
+                <!-- Example row of columns -->
+                <div class="row" id="posts-collection"></div>
+
+                <hr />
+            </div>
+            <!-- /container -->
+        </main>
+    </center>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-auth.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCY4btmwPCE0evvj8f41Nzuk9NBwJoFmcs",
+            authDomain: "fireapp-01-7f5a1.firebaseapp.com",
+            databaseURL: "https://fireapp-01-7f5a1-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "fireapp-01-7f5a1",
+            storageBucket: "fireapp-01-7f5a1.appspot.com",
+            messagingSenderId: "151203507377",
+            appId: "1:151203507377:web:7009d76906423b63cc4690"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        function signUp() {
+
+            var name = document.getElementById("name");
+            var email = document.getElementById("email");
+            var password = document.getElementById("password");
+            console.log(name.value);
+            firebase
+                .auth()
+                .createUserWithEmailAndPassword(email.value, password.value)
+                .then((res) => {
+                    const user = firebase.auth().currentUser;
+
+
+                    if (user != null) {
+                        user.updateProfile({
+                            displayName: name.value
+                        }).then(() => {
+
+                            window.location = 'blogpage.html';
+                        }).catch((error) => {
+                            console.log(error);
+                        });
+                    } else {
+                        alert("Some error has been occured");
+                    }
+
+                }).catch(function(error) {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    alert(errorMessage);
+                    // ...
+                });
+
+        }
+
+        function signIn() {
+
+            var email = document.getElementById("email");
+            var password = document.getElementById("password");
+
+            firebase
+                .auth()
+                .signInWithEmailAndPassword(email.value, password.value)
+                .then((res) => {
+
+                    window.location = 'blogpage.html';
+
+                }).catch(function(error) {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    alert(errorMessage);
+
+                });
+        }
+
+        function googleSignIn() {
+            base_provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(base_provider).then(function(result) {
+                console.log(result);
+                alert("Successful");
+                window.location = 'blogpage.html';
+            }).catch(function(err) {
+                console.log(err);
+                alert("Some error has occured");
+
+            });
+        }
+    </script>
+</body>
+
+</html>
