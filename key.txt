@@ -1,0 +1,14 @@
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCY4btmwPCE0evvj8f41Nzuk9NBwJoFmcs",
+    authDomain: "fireapp-01-7f5a1.firebaseapp.com",
+    databaseURL: "https://fireapp-01-7f5a1-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "fireapp-01-7f5a1",
+    storageBucket: "fireapp-01-7f5a1.appspot.com",
+    messagingSenderId: "151203507377",
+    appId: "1:151203507377:web:7009d76906423b63cc4690"
+};
+ 
+Live: https://fireapp-01-7f5a1.web.app/
+
